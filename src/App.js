@@ -18,7 +18,10 @@ function App() {
   const [winddirection, setWinddirection] = useState("빈값");
   const [windtext, setWindtext] = useState("북쪽");
   const [weather, setweather] = useState([]);
-
+  const [hoursrainfall, setHoursrainfall] = useState([]);
+  const [hourstemperature, setHourstemperature] = useState([]);
+  const [hourshumidity, setHourshumidity] = useState([]);
+  const onehours = "시간";
   if (month < 10) {
     //월이 10월보다 작을경우 01로 나오게 설정
     month = "0" + month;
@@ -59,25 +62,60 @@ function App() {
       .then((data) => {
         console.log(data);
 
-        let copy = [...weather];
         //6~11 강수형태 "0"1234
         for (let i = 6; i <= 11; i++) {
+          let copy = weather;
           copy.push(data.response.body.items.item[i].fcstValue);
           if (copy[i - 6] == 0) {
-            setweather("맑음");
+            copy[i - 6] = "날씨는 맑음 입니다.";
           } else if (copy[i - 6] == 1) {
+            copy[i - 6] = "날씨는 비가 내립니다.";
           } else if (copy[i - 6] == 2) {
+            copy[i - 6] = "날씨는 눈과 비가 내립니다.";
           } else if (copy[i - 6] == 3) {
+            copy[i - 6] = "날씨는 눈이 내립니다.";
           } else if (copy[i - 6] == 4) {
+            copy[i - 6] = "현재 날씨는 폭우 입니다.";
           } else if (copy[i - 6] == 5) {
+            copy[i - 6] = "날씨는 빗방울이 떨어지겠습니다.";
           } else if (copy[i - 6] == 6) {
+            copy[i - 6] = "날씨는 비나 눈이 흩날립니다.";
           }
+          setweather([...copy]);
         }
 
         //12~ 17 강수량 "강수없음"
+        for (let i = 12; i <= 17; i++) {
+          let futureRainfall = hoursrainfall;
+          futureRainfall.push(data.response.body.items.item[i].fcstValue);
+          if (futureRainfall[i - 12] == "강수없음") {
+            futureRainfall[i - 12] = "강수량이 없습니다";
+          } else if (futureRainfall[i - 12] == "1.0mm 미만") {
+            futureRainfall[i - 12] = "1.0mm 미만의 강수량이 있습니다";
+          } else if (futureRainfall[i - 12] == "30.0~50.0mm") {
+            futureRainfall[i - 12] = "30.0~50.0mm의 강수량이 있습니다";
+          } else if (futureRainfall[i - 12] == "50.0mm 이상") {
+            futureRainfall[i - 12] = "50.0mm 이상 강수량이 있습니다";
+          } else {
+            futureRainfall[i - 12] = `${
+              futureRainfall[i - 12]
+            }의 강수량이 있습니다`;
+          }
+          setHoursrainfall([...futureRainfall]);
+        }
         //18~23 하늘형태 "3"맑음
         //24~29 기온 "8"도
+        for (let i = 24; i <= 29; i++) {
+          let futureTemperature = hourstemperature;
+          futureTemperature.push(data.response.body.items.item[i].fcstValue);
+          setHourstemperature([...futureTemperature]);
+        }
         //30~35 습도 "45"%
+        for (let i = 30; i <= 35; i++) {
+          let futureHumidity = hourshumidity;
+          futureHumidity.push(data.response.body.items.item[i].fcstValue);
+          setHourshumidity([...futureHumidity]);
+        }
         //48~53 풍향 "4"풍
         //54~59 풍속  "2"m/s
       });
@@ -131,7 +169,7 @@ function App() {
         <h3>현재 기온</h3>
         <p>{temperature}º 입니다.</p>
         <h3>습도</h3>
-        <p>{humidity}%</p>
+        <p>{humidity}%입니다.</p>
         <h3>1시간 강수량</h3>
         <p>
           {rainfall == 0
@@ -147,14 +185,67 @@ function App() {
         {/* VEC 5배열 */}
       </div>
       <div className="onehours">
-        <h3>한시간 후 날씨</h3>
-        <p>{weather}</p>
+        <h3>{onehours} 후 날씨</h3>
+        <p>
+          {onehours} 뒤 {weather[0]}
+        </p>
+        <h3> 기온</h3>
+        <p>{hourstemperature[0]}º 입니다.</p>
+        <h3>습도</h3>
+        <p>{hourshumidity[0]}%입니다.</p>
+        <h3>{onehours} 강수량</h3>
+        <p>{hoursrainfall[0]}</p>
       </div>
-      <div className="twohours"></div>
-      <div className="threehours"></div>
-      <div className="fourhours"></div>
-      <div className="fivehours"></div>
-      <div className="sixehours"></div>
+      <div className="twohours">
+        <h3>두 시간 후 날씨</h3>
+        <p>두 시간 뒤 {weather[1]}</p>
+        <h3> 기온</h3>
+        <p>{hourstemperature[1]}º 입니다.</p>
+        <h3>습도</h3>
+        <p>{hourshumidity[1]}%입니다.</p>
+        <h3>1시간 강수량</h3>
+        <p>{hoursrainfall[1]}</p>
+      </div>
+      <div className="threehours">
+        <h3>세 시간 후 날씨</h3>
+        <p>세 시간 뒤 {weather[2]}</p>
+        <h3> 기온</h3>
+        <p>{hourstemperature[2]}º 입니다.</p>
+        <h3>습도</h3>
+        <p>{hourshumidity[2]}%입니다.</p>
+        <h3>1시간 강수량</h3>
+        <p>{hoursrainfall[2]}</p>
+      </div>
+      <div className="fourhours">
+        <h3>네 시간 후 날씨</h3>
+        <p>네 시간 뒤 {weather[3]}</p>
+        <h3> 기온</h3>
+        <p>{hourstemperature[3]}º 입니다.</p>
+        <h3>습도</h3>
+        <p>{hourshumidity[3]}%입니다.</p>
+        <h3>1시간 강수량</h3>
+        <p>{hoursrainfall[3]}</p>
+      </div>
+      <div className="fivehours">
+        <h3>다섯 시간 후 날씨</h3>
+        <p>다섯 시간 뒤 {weather[4]}</p>
+        <h3> 기온</h3>
+        <p>{hourstemperature[4]}º 입니다.</p>
+        <h3>습도</h3>
+        <p>{hourshumidity[4]}%입니다.</p>
+        <h3>1시간 강수량</h3>
+        <p>{hoursrainfall[4]}</p>
+      </div>
+      <div className="sixehours">
+        <h3>여섯 시간 후 날씨</h3>
+        <p>여섯 시간 뒤 {weather[5]}</p>
+        <h3> 기온</h3>
+        <p>{hourstemperature[5]}º 입니다.</p>
+        <h3>습도</h3>
+        <p>{hourshumidity[5]}%입니다.</p>
+        <h3>1시간 강수량</h3>
+        <p>{hoursrainfall[5]}</p>
+      </div>
     </>
   );
 }
