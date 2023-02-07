@@ -1,6 +1,7 @@
 //weather
 import "./App.css";
 import { useState, useEffect } from "react";
+import gpsmap from "./mapjson.json";
 
 function App() {
   const time = new Date();
@@ -21,6 +22,14 @@ function App() {
   const [hoursrainfall, setHoursrainfall] = useState([]);
   const [hourstemperature, setHourstemperature] = useState([]);
   const [hourshumidity, setHourshumidity] = useState([]);
+  const [hourswindtext, setHourswindtext] = useState([]);
+  const [hourswind, setHourswind] = useState([]);
+  // const [searchtext, setSearchtext] = useState("안양");
+  // const [filterdata, setFilterdata] = useState([]);
+
+  // setFilterdata(filteringdata);
+
+  console.log(gpsmap.gps[3].two);
   const onehours = "시간";
   if (month < 10) {
     //월이 10월보다 작을경우 01로 나오게 설정
@@ -61,7 +70,9 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-
+        // const filteringdata = gpsmap.gps.filter((item) =>
+        //   // item.two.includes(searchtext)
+        // );
         //6~11 강수형태 "0"1234
         for (let i = 6; i <= 11; i++) {
           let copy = weather;
@@ -117,7 +128,34 @@ function App() {
           setHourshumidity([...futureHumidity]);
         }
         //48~53 풍향 "4"풍
+        for (let i = 48; i <= 53; i++) {
+          let futureWindtext = hourswindtext;
+          futureWindtext.push(data.response.body.items.item[i].fcstValue);
+          if (futureWindtext[i - 48] <= 45) {
+            futureWindtext[i - 48] = "북풍";
+          } else if (
+            futureWindtext[i - 48] > 45 &&
+            futureWindtext[i - 48] <= 135
+          ) {
+            futureWindtext[i - 48] = "동풍";
+          } else if (
+            futureWindtext[i - 48] > 135 &&
+            futureWindtext[i - 48] <= 225
+          ) {
+            futureWindtext[i - 48] = "남풍";
+          } else if (futureWindtext[i - 48] > 225 && winddirection <= 315) {
+            futureWindtext[i - 48] = "서풍";
+          } else {
+            futureWindtext[i - 48] = "북풍";
+          }
+          setHourswindtext([...futureWindtext]);
+        }
         //54~59 풍속  "2"m/s
+        for (let i = 54; i <= 59; i++) {
+          let futurewind = hourswind;
+          futurewind.push(data.response.body.items.item[i].fcstValue);
+          setHourswind([...futurewind]);
+        }
       });
 
     fetch(RightNow_API)
@@ -159,42 +197,73 @@ function App() {
         }
       });
   }, []);
-
+  // const changetext = (event) => {
+  //   setSearchtext(event.target.value);
+  // };
   return (
-    <>
-      <h1>일기 단기 예보</h1>
+    <div className="container">
+      <h1 className="title">일기 단기 예보</h1>
       <div className="currently">
-        <h3>현재 날씨</h3>
-        <p>{text}</p>
-        <h3>현재 기온</h3>
-        <p>{temperature}º 입니다.</p>
-        <h3>습도</h3>
-        <p>{humidity}%입니다.</p>
-        <h3>1시간 강수량</h3>
-        <p>
-          {rainfall == 0
-            ? "강수량이 없습니다."
-            : `현재 강수량은 ${rainfall}mm미만입니다.`}
-        </p>
-        {/*RN1 2배열 */}
-        <h3>풍속</h3>
-        <p>{wind}m/s 입니다</p>
-        {/* WSD 7배열 */}
-        <h3>풍향</h3>
-        <p>현재 {windtext} 입니다.</p>
-        {/* VEC 5배열 */}
+        <div className="inputlist">
+          <input type="text" placeholder="시/군/구를 입력하세요" />
+        </div>
+        <div>
+          <div className="col">
+            <h3>현재 날씨</h3>
+            <p>{text}</p>
+            <h3>현재 기온</h3>
+            <p>{temperature}º 입니다.</p>
+
+            <h3>습도</h3>
+            <p>{humidity}%입니다.</p>
+            <h3>
+              1시간 <br />
+              강수량
+            </h3>
+            <p>
+              {rainfall == 0
+                ? "강수량이 없습니다."
+                : `현재 강수량은 ${rainfall}mm미만입니다.`}
+            </p>
+            {/*RN1 2배열 */}
+
+            <h3>풍속</h3>
+            <p>{wind}m/s 입니다</p>
+            {/* WSD 7배열 */}
+            <h3>풍향</h3>
+            <p>현재 {windtext} 입니다.</p>
+            {/* VEC 5배열 */}
+          </div>
+        </div>
+      </div>
+      <div className="weatherbtn">
+        <div className="colbtn">
+          <button className="btnsize">현재</button>
+          <button className="btnsize">1시간후</button>
+          <button className="btnsize">2시간후</button>
+        </div>
+        <div className="colbtn">
+          <button className="btnsize">3시간후</button>
+          <button className="btnsize">4시간후</button>
+          <button className="btnsize">5시간후</button>
+          <button className="btnsize">6시간후</button>
+        </div>
       </div>
       <div className="onehours">
-        <h3>{onehours} 후 날씨</h3>
+        <h3>1{onehours} 후 날씨</h3>
         <p>
-          {onehours} 뒤 {weather[0]}
+          1{onehours} 뒤 {weather[0]}
         </p>
         <h3> 기온</h3>
         <p>{hourstemperature[0]}º 입니다.</p>
         <h3>습도</h3>
         <p>{hourshumidity[0]}%입니다.</p>
-        <h3>{onehours} 강수량</h3>
+        <h3>1{onehours} 강수량</h3>
         <p>{hoursrainfall[0]}</p>
+        <h3>풍속</h3>
+        <p>{hourswind[0]}m/s 입니다</p>
+        <h3>풍향</h3>
+        <p> {hourswindtext[0]} 입니다.</p>
       </div>
       <div className="twohours">
         <h3>두 시간 후 날씨</h3>
@@ -205,6 +274,10 @@ function App() {
         <p>{hourshumidity[1]}%입니다.</p>
         <h3>1시간 강수량</h3>
         <p>{hoursrainfall[1]}</p>
+        <h3>풍속</h3>
+        <p>{hourswind[1]}m/s 입니다</p>
+        <h3>풍향</h3>
+        <p> {hourswindtext[1]} 입니다.</p>
       </div>
       <div className="threehours">
         <h3>세 시간 후 날씨</h3>
@@ -215,6 +288,10 @@ function App() {
         <p>{hourshumidity[2]}%입니다.</p>
         <h3>1시간 강수량</h3>
         <p>{hoursrainfall[2]}</p>
+        <h3>풍속</h3>
+        <p>{hourswind[2]}m/s 입니다</p>
+        <h3>풍향</h3>
+        <p> {hourswindtext[2]} 입니다.</p>
       </div>
       <div className="fourhours">
         <h3>네 시간 후 날씨</h3>
@@ -225,6 +302,10 @@ function App() {
         <p>{hourshumidity[3]}%입니다.</p>
         <h3>1시간 강수량</h3>
         <p>{hoursrainfall[3]}</p>
+        <h3>풍속</h3>
+        <p>{hourswind[3]}m/s 입니다</p>
+        <h3>풍향</h3>
+        <p> {hourswindtext[3]} 입니다.</p>
       </div>
       <div className="fivehours">
         <h3>다섯 시간 후 날씨</h3>
@@ -235,6 +316,10 @@ function App() {
         <p>{hourshumidity[4]}%입니다.</p>
         <h3>1시간 강수량</h3>
         <p>{hoursrainfall[4]}</p>
+        <h3>풍속</h3>
+        <p>{hourswind[4]}m/s 입니다</p>
+        <h3>풍향</h3>
+        <p> {hourswindtext[4]} 입니다.</p>
       </div>
       <div className="sixehours">
         <h3>여섯 시간 후 날씨</h3>
@@ -245,8 +330,12 @@ function App() {
         <p>{hourshumidity[5]}%입니다.</p>
         <h3>1시간 강수량</h3>
         <p>{hoursrainfall[5]}</p>
+        <h3>풍속</h3>
+        <p>{hourswind[5]}m/s 입니다</p>
+        <h3>풍향</h3>
+        <p> {hourswindtext[5]} 입니다.</p>
       </div>
-    </>
+    </div>
   );
 }
 

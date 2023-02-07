@@ -1,38 +1,81 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.container {
+  background-image: url(/public/bg1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+.title {
+  padding-top: 30px;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.currently {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  height: 70vh;
 }
+.currently .col {
+  columns: 3;
+  column-gap: 20px;
+  padding: 10px;
+}
+.currently h3 {
+  text-align: center;
+  padding: 10px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  color: #000;
+  background: lightblue;
+  border-radius: 10px;
+  width: 100px;
+}
+.currently p {
+  margin: 20px 0;
+  color: white;
+  text-align: center;
+}
+.weatherbtn {
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.weatherbtn .btnsize {
+  margin: 10px;
+  border-radius: 20px;
+  border: 1px solid lightblue;
+  padding: 10px;
+}
+.inputlist input {
+  border-radius: 20px;
+  height: 30px;
+  text-align: center;
+  padding: 0 10px;
+}
+.onehours {
+  display: none;
+}
+.twohours {
+  display: none;
+}
+.threehours {
+  display: none;
+}
+.fourhours {
+  display: none;
+}
+.fivehours {
+  display: none;
+}
+.sixehours {
+  display: none;
 }
