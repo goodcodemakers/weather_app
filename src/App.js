@@ -30,13 +30,18 @@ function App() {
   const [searchvalue, setSearchvalue] = useState([]);
 
   const [selectedOption, setSelectedOption] = useState("");
-
+  const [selectedTwoOption, setSelectedTwoOption] = useState("");
   const selectOne = (e) => {
     setSelectedOption(e.target.value);
   };
-  // let selectgu = gpsmap.gps.filter((e) => e.one === "이어도");
+  const selectTwo = (e) => {
+    setSelectedTwoOption(e.target.value);
+  };
+  let selectgu = gpsmap.gps.filter(
+    (e) => e.one === "서울특별시" && e.two === "종로구"
+  );
   //종복되는값을 제거하여 뽑아낸뒤 이어도에 일치하는 값을 뽑아내기
-  // let arr2 = [...new Set(selectgu.map((e) => e.two))];
+  let arr2 = [...new Set(selectgu.map((e) => e.two))];
   //json파일에서 중복되는 값을 제거하여 뽑아내기
 
   let selectone = [
@@ -348,7 +353,7 @@ function App() {
       one: "이어도",
     },
   ];
-  console.log(selectone[0].two[0]);
+
   // const [filterdata, setFilterdata] = useState([]);
   // let btnSequence = [
   //   "현재",
@@ -633,12 +638,7 @@ function App() {
               </option>
             ))}
           </select>
-          <select
-            className="selectStyle"
-            onChange={(e) => {
-              console.log(e.target.value);
-            }}
-          >
+          <select className="selectStyle" onChange={selectTwo}>
             {selectone.map(
               (e, i) =>
                 e.one === selectedOption &&
