@@ -29,21 +29,22 @@ https://github.com/goodcodemakers/weather_app <br>
 
 ### 오류작업
 -오류가 심하게 걸렷던 부분에서는 useState({})로 한지 모르고 아래에서 분명 데이터는 들어오는데 배열로 받으려면 없는경우가 발생하여 한참동안이나 뜯어 봣으나 이상이없음에도 불구 하고 안되어 상당히 힘들었습니다 . 리엑트에서는 useState()안에 숫자면숫자 문자면 문자 등으로 나눠 타입을 정해주는것을 까먹으면 안되겠다고 생각하였습니다 .
-
-#Weather App
+<br>
+# Weather App
+<hr>
 This weather app is a React-based weather application that shows the weather in various locations in South Korea.
 <br>
 Links
 GitHub source code repository: [(https://github.com/goodcodemakers/weather_app)]<br>
 Deployed website URL: [(https://weather-app-eta-rose.vercel.app)]<br>
 <hr>
-##Updates
+## Updates
 -First update
 In this update, the API was imported and organized to retrieve the corresponding values and send them to the screen.
 Second update
 It was realized that the API needed to retrieve the current weather and future weather from different APIs. The two APIs were retrieved and used to display the current and future weather information.
-###Documentation
---Default value:
+### Documentation
+-- Default value:
 The default value is set to the latitude and longitude of Seoul, Jongno-gu.
 If the user selects a city name from anywhere in the country, the appropriate city, gu, and gun will be displayed.
 When the user makes this selection, the API's address is changed and the appropriate data is transmitted.
