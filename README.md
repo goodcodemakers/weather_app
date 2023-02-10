@@ -34,16 +34,16 @@ Weather App
 This weather app is a React-based weather application that shows the weather in various locations in South Korea.
 
 Links
-GitHub source code repository: [Link not provided]
-Deployed website URL: [Link not provided]
+GitHub source code repository: [(https://github.com/goodcodemakers/weather_app)]
+Deployed website URL: [(https://weather-app-eta-rose.vercel.app)]
 <hr>
-Updates
-First update
+##Updates
+-First update
 In this update, the API was imported and organized to retrieve the corresponding values and send them to the screen.
 Second update
 It was realized that the API needed to retrieve the current weather and future weather from different APIs. The two APIs were retrieved and used to display the current and future weather information.
-Documentation
-Default value:
+###Documentation
+--Default value:
 The default value is set to the latitude and longitude of Seoul, Jongno-gu.
 If the user selects a city name from anywhere in the country, the appropriate city, gu, and gun will be displayed.
 When the user makes this selection, the API's address is changed and the appropriate data is transmitted.
