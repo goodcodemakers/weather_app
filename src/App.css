@@ -15,53 +15,72 @@
   color: white;
 }
 
+h2 {
+  text-align: center;
+}
 .currently {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
   height: 70vh;
 }
-.currently .col {
-  columns: 3;
-  column-gap: 20px;
-  padding: 10px;
-}
-.currently h3 {
-  text-align: center;
-  padding: 10px;
 
-  color: #000;
-  background: lightblue;
-  border-radius: 10px;
-  width: 100px;
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
-.currently p {
-  margin: 20px 0;
-  color: white;
+
+.col {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
   text-align: center;
+  padding: 1rem;
 }
-.weatherbtn {
+.col p {
+  margin-top: 5px;
+  font-weight: bold;
+}
+h3 {
+  padding: 10px;
+  background-color: skyblue;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.weatherbtn .colbtn {
   height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 .weatherbtn .btnsize {
   margin: 10px;
   border-radius: 20px;
   border: 1px solid lightblue;
   padding: 10px;
+  width: 15%;
 }
-.inputlist input {
-  border-radius: 20px;
-  height: 30px;
+.subtitle {
   text-align: center;
+  margin: 10px auto;
+}
+.inputlist {
+  height: 30px;
   padding: 0 10px;
 }
 .selectStyle {
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 20px;
   width: auto;
   text-align: center;
+  margin-right: 10px;
+  padding: 10px;
 }
