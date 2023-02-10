@@ -4,7 +4,7 @@
 - 깃허브 소스 주소
 https://github.com/goodcodemakers/weather_app <br>
 -배포 홈페이지 URL 
-dad
+(https://weather-app-eta-rose.vercel.app/)<br>
 <hr>
 ## update
 1.첫 업데이트
