@@ -7,7 +7,7 @@ https://github.com/goodcodemakers/weather_app <br>
 -배포 홈페이지 URL 
 (https://weather-app-eta-rose.vercel.app/)<br>
 <hr>
-## update
+### update<br>
 -1.첫 업데이트
 - 업데이트로는 API를 가져와서 그 API에 해당되는 값이 무엇인지를 받아와 화면에 보내 주기 위해 정리함
 2.두번째 업데이트 
@@ -15,7 +15,7 @@ https://github.com/goodcodemakers/weather_app <br>
 두 가지의 API를 가져와 작업을 하였고 ,눈에 보이는것을 확인하기 위하여 더미데이터를 넣어 어플이 유동적으로 작동하는지 확인을 하였습니다.
 3.마지막 업데이트
 마지막 업데이트로는 더미데이터를 빼고 진짜 데이터를 넣어 해당지역에 맞는 기온과 날씨등을 쓸수 있도록 하였습니다.
-## Dockment
+### Dockment
 1.<br>
 - 디폴트값은 서울 종로구 의 위도와 경도로 하여 잡았으며
 - 유저가 선택시 전국에 있는 도시명을 선태갛면 그 도시에 알맞는 시,구,군이 뜨게 설정하였으며 <br>
