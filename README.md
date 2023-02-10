@@ -8,7 +8,7 @@ https://github.com/goodcodemakers/weather_app <br>
 (https://weather-app-eta-rose.vercel.app/)<br>
 <hr>
 ## update
-1.첫 업데이트
+-1.첫 업데이트
 - 업데이트로는 API를 가져와서 그 API에 해당되는 값이 무엇인지를 받아와 화면에 보내 주기 위해 정리함
 2.두번째 업데이트 
 - 해당 API가 현재의 날씨와 미래의 날씨를 각각의 다른 API를 가져와서 작업해야하는것을 깨닫고 
