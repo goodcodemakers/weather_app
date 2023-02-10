@@ -30,12 +30,12 @@ https://github.com/goodcodemakers/weather_app <br>
 ### 오류작업
 -오류가 심하게 걸렷던 부분에서는 useState({})로 한지 모르고 아래에서 분명 데이터는 들어오는데 배열로 받으려면 없는경우가 발생하여 한참동안이나 뜯어 봣으나 이상이없음에도 불구 하고 안되어 상당히 힘들었습니다 . 리엑트에서는 useState()안에 숫자면숫자 문자면 문자 등으로 나눠 타입을 정해주는것을 까먹으면 안되겠다고 생각하였습니다 .
 
-Weather App
+#Weather App
 This weather app is a React-based weather application that shows the weather in various locations in South Korea.
-
+<br>
 Links
-GitHub source code repository: [(https://github.com/goodcodemakers/weather_app)]
-Deployed website URL: [(https://weather-app-eta-rose.vercel.app)]
+GitHub source code repository: [(https://github.com/goodcodemakers/weather_app)]<br>
+Deployed website URL: [(https://weather-app-eta-rose.vercel.app)]<br>
 <hr>
 ##Updates
 -First update
