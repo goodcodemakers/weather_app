@@ -2,7 +2,7 @@
 - 해당앱은 한국 각지의 날씨를 리엑트로 나타낸 날씨 어플입니다.
 ## 링크 주소 
 - 깃허브 소스 주소
-da
+https://github.com/goodcodemakers/weather_app <br>
 -배포 홈페이지 URL 
 dad
 <hr>
