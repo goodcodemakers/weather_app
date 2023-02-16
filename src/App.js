@@ -19,12 +19,18 @@ function App() {
   const [wind, setWind] = useState("빈값");
   const [winddirection, setWinddirection] = useState("빈값");
   const [windtext, setWindtext] = useState("북쪽");
-  const [weather, setweather] = useState([]);
-  const [hoursrainfall, setHoursrainfall] = useState([]);
-  const [hourstemperature, setHourstemperature] = useState([]);
-  const [hourshumidity, setHourshumidity] = useState([]);
-  const [hourswindtext, setHourswindtext] = useState([]);
-  const [hourswind, setHourswind] = useState([]);
+
+  // *** weatherInfo 하나로 줄이셈
+  // const [weather, setweather] = useState([]);
+  // const [hoursrainfall, setHoursrainfall] = useState([]);
+  // const [hourstemperature, setHourstemperature] = useState([]);
+  // const [hourshumidity, setHourshumidity] = useState([]);
+  // const [hourswindtext, setHourswindtext] = useState([]);
+  // const [hourswind, setHourswind] = useState([]);
+
+  // *** 합친 날씨 정보 ***
+  const [weatherInfo, setWeatherInfo] = useState([]);
+
   const [a, seta] = useState([]);
   const [b, setb] = useState([]);
   const [show, setShow] = useState([]);
@@ -90,6 +96,7 @@ function App() {
 
   const key_API =
     "ZwjdolGMPlwKDKgf7%2FdwTHL5iLxRG%2Fy3e%2FsoWTXzd6eFglmK8ReAW%2BCBY0gYHK%2Bm7JJPqa0sHX1s5SnXsKbD%2Fw%3D%3D";
+
   useEffect(() => {
     const RightNow_API = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${key_API}&numOfRows=10&pageNo=1&base_date=${today}&base_time=${todaytime}&nx=${xValue}&ny=${yValue}&dataType=json`;
     const url_API = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${key_API}&numOfRows=360&pageNo=1&base_date=${today}&base_time=${todaytime}&nx=${xValue}&ny=${yValue}&dataType=json&pageNo=1&totalCount=360`;
@@ -121,7 +128,7 @@ function App() {
             copy[i - 6] = "날씨는 비나 눈이 흩날립니다.";
           }
         }
-        setweather(copy);
+        // setweather(copy);
 
         //12~ 17 강수량 "강수없음"
         let futureRainfall = [];
@@ -140,7 +147,7 @@ function App() {
             futureRainfall[i - 12] = `${futureRainfall[i - 12]}`;
           }
         }
-        setHoursrainfall(futureRainfall);
+        // setHoursrainfall(futureRainfall);
 
         //18~23 하늘형태 "3"맑음
         //24~29 기온 "8"도
@@ -151,15 +158,16 @@ function App() {
           // setHourstemperature(futureTemperature);
           futureTemperature.push(data.response.body.items.item[i].fcstValue);
         }
-        setHourstemperature(futureTemperature);
-        console.log(hourstemperature);
+        // setHourstemperature(futureTemperature);
+
         //30~35 습도 "45"%
         let futureHumidity = [];
         for (let i = 30; i <= 35; i++) {
           // let futureHumidity = hourshumidity;
           futureHumidity.push(data.response.body.items.item[i].fcstValue);
         }
-        setHourshumidity(futureHumidity);
+        // setHourshumidity(futureHumidity);
+
         //48~53 풍향 "4"풍
         let futureWindtext = [];
         for (let i = 48; i <= 53; i++) {
@@ -183,70 +191,7 @@ function App() {
             futureWindtext[i - 48] = "북풍";
           }
         }
-        setHourswindtext(futureWindtext);
-
-        seta([
-          {
-            id: 1,
-            active: false,
-            weather: weather[0],
-            temper: hourstemperature[0],
-            humidity: hourshumidity[0],
-            rain: hoursrainfall[0],
-            wind: hourswind[0],
-            windtext: hourswindtext[0],
-          },
-          {
-            id: 2,
-            active: false,
-            weather: weather[1],
-            temper: hourstemperature[1],
-            humidity: hourshumidity[1],
-            rain: hoursrainfall[1],
-            wind: hourswind[1],
-            windtext: hourswindtext[1],
-          },
-          {
-            id: 3,
-            active: false,
-            weather: weather[2],
-            temper: hourstemperature[2],
-            humidity: hourshumidity[2],
-            rain: hoursrainfall[2],
-            wind: hourswind[2],
-            windtext: hourswindtext[2],
-          },
-          {
-            id: 4,
-            active: false,
-            weather: weather[3],
-            temper: hourstemperature[3],
-            humidity: hourshumidity[3],
-            rain: hoursrainfall[3],
-            wind: hourswind[3],
-            windtext: hourswindtext[3],
-          },
-          {
-            id: 5,
-            active: false,
-            weather: weather[4],
-            temper: hourstemperature[4],
-            humidity: hourshumidity[4],
-            rain: hoursrainfall[4],
-            wind: hourswind[4],
-            windtext: hourswindtext[4],
-          },
-          {
-            id: 6,
-            active: false,
-            weather: weather[5],
-            temper: hourstemperature[5],
-            humidity: hourshumidity[5],
-            rain: hoursrainfall[5],
-            wind: hourswind[5],
-            windtext: hourswindtext[5],
-          },
-        ]);
+        // setHourswindtext(futureWindtext);
 
         //54~59 풍속  "2"m/s
         let futurewind = [];
@@ -254,7 +199,88 @@ function App() {
           // let futurewind = hourswind;
           futurewind.push(data.response.body.items.item[i].fcstValue);
         }
-        setHourswind(futurewind);
+        // setHourswind(futurewind);
+
+        // 날씨정보 하나로 합침
+        let weatherInfoCopy = [
+          {
+            weather: [...copy],
+            futureRainfall: [...futureRainfall], // Hoursrainfall
+            futureWindtext: [...futureWindtext], // Hourswindtext
+            futureTemperature: [...futureTemperature], // Hourstemperature
+            futureHumidity: [...futureHumidity], // Hourshumidity
+            hoursWind: [...futurewind], // Hourswind
+          },
+        ];
+
+        // 6가지 날씨 정보 세팅
+        setWeatherInfo(weatherInfoCopy);
+        // console.log('weatherInfoCopy =  ', weatherInfoCopy)
+        console.log("weatherInfo = ", weatherInfo);
+
+        // 현재 날씨
+        seta([
+          {
+            id: 1,
+            active: false,
+            weather: weatherInfo[0].weather[0], // weather[0],
+            temper: weatherInfo[0].futureTemperature[0], //hourstemperature[0],
+            humidity: weatherInfo[0].futureHumidity[0], //hourshumidity[0],
+            rain: weatherInfo[0].futureRainfall[0], // hoursrainfall[0],
+            wind: weatherInfo[0].hoursWind[0], // hourswind[0],
+            windtext: weatherInfo[0].futureWindtext[0], // hourswindtext[0],
+          },
+          {
+            id: 2,
+            active: false,
+            weather: weatherInfo[0].weather[1], // weather[0],
+            temper: weatherInfo[0].futureTemperature[1], //hourstemperature[0],
+            humidity: weatherInfo[0].futureHumidity[1], //hourshumidity[0],
+            rain: weatherInfo[0].futureRainfall[1], // hoursrainfall[0],
+            wind: weatherInfo[0].hoursWind[1], // hourswind[0],
+            windtext: weatherInfo[0].futureWindtext[1], // hourswindtext[0],
+          },
+          {
+            id: 3,
+            active: false,
+            weather: weatherInfo[0].weather[2], // weather[0],
+            temper: weatherInfo[0].futureTemperature[2], //hourstemperature[0],
+            humidity: weatherInfo[0].futureHumidity[2], //hourshumidity[0],
+            rain: weatherInfo[0].futureRainfall[2], // hoursrainfall[0],
+            wind: weatherInfo[0].hoursWind[2], // hourswind[0],
+            windtext: weatherInfo[0].futureWindtext[2], // hourswindtext[0],
+          },
+          {
+            id: 4,
+            active: false,
+            weather: weatherInfo[0].weather[3], // weather[0],
+            temper: weatherInfo[0].futureTemperature[3], //hourstemperature[0],
+            humidity: weatherInfo[0].futureHumidity[3], //hourshumidity[0],
+            rain: weatherInfo[0].futureRainfall[3], // hoursrainfall[0],
+            wind: weatherInfo[0].hoursWind[3], // hourswind[0],
+            windtext: weatherInfo[0].futureWindtext[3], // hourswindtext[0],
+          },
+          {
+            id: 5,
+            active: false,
+            weather: weatherInfo[0].weather[4], // weather[0],
+            temper: weatherInfo[0].futureTemperature[4], //hourstemperature[0],
+            humidity: weatherInfo[0].futureHumidity[4], //hourshumidity[0],
+            rain: weatherInfo[0].futureRainfall[4], // hoursrainfall[0],
+            wind: weatherInfo[0].hoursWind[4], // hourswind[0],
+            windtext: weatherInfo[0].futureWindtext[4], // hourswindtext[0],
+          },
+          {
+            id: 6,
+            active: false,
+            weather: weatherInfo[0].weather[5], // weather[0],
+            temper: weatherInfo[0].futureTemperature[5], //hourstemperature[0],
+            humidity: weatherInfo[0].futureHumidity[5], //hourshumidity[0],
+            rain: weatherInfo[0].futureRainfall[5], // hoursrainfall[0],
+            wind: weatherInfo[0].hoursWind[5], // hourswind[0],
+            windtext: weatherInfo[0].futureWindtext[5], // hourswindtext[0],
+          },
+        ]);
       });
 
     fetch(RightNow_API)
